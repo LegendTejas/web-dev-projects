@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TejasTech AI Card</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            margin: 0;
+        }
+
+        .card {
+            width: 450px;
+            height: 280px;
+            background-color: #1e1e1e;
+            border-radius: 20px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 70%);
+            z-index: 0;
+        }
+
+        .chip {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 50px;
+            height: 40px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .chip::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            top: 8px;
+            left: 5px;
+            background-color: #999;
+        }
+
+        .chip::after {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            top: 18px;
+            left: 5px;
+            background-color: #999;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .details {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1;
+            color: #fff;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .details h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .details p {
+            font-size: 0.8rem;
+            margin: 5px 0 0;
+            opacity: 0.8;
+        }
+
+        .circuits {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('/mnt/data/image.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="circuits"></div>
+        <div class="chip"></div>
+        <div class="logo">
+            <img src="Tejas.jpg" alt="Logo">
+        </div>
+        <div class="details">
+            <h1>TejasTech AI</h1>
+            <p>ID: 0564510</p>
+            <p class="address">Address: 123 Tech Lane, Silicon Valley, CA, USA</p>
+        </div>
+
+</body>
+</html>
