@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Quality Index Calculator</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #6e45e2, #88d3ce);
+      overflow: hidden;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 2em;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(12px);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transform: scale(0.9);
+      animation: zoomIn 0.5s ease forwards;
+    }
+
+    @keyframes zoomIn {
+      0% { transform: scale(0.9); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      color: #ffffff;
+      font-size: 2em;
+      font-weight: 600;
+      margin-bottom: 1em;
+      animation: fadeInDown 0.7s ease;
+      background: linear-gradient(45deg, #ffffff, #88d3ce);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: #ddd;
+      font-size: 1em;
+      margin-bottom: 1.5em;
+      animation: fadeInUp 0.7s ease;
+    }
+
+    .input-group {
+      margin-bottom: 1em;
+      text-align: left;
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    label {
+      display: block;
+      color: #ffffff;
+      font-weight: 500;
+      margin-bottom: 0.4em;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1em;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    input[type="number"]:focus {
+      border-color: #88d3ce;
+      box-shadow: 0 0 8px rgba(136, 211, 206, 0.7);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 0.8em;
+      background: linear-gradient(90deg, #3a7bd5, #3a6073);
+      color: #ffffff;
+      font-size: 1em;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+      margin-top: 1em;
+      animation: bounceIn 0.5s ease forwards;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #3a6073, #3a7bd5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(58, 123, 213, 0.3);
+    }
+
+    .result {
+      margin-top: 1.5em;
+      padding: 1.2em;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(10px);
+      color: #ffffff;
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #result h2 {
+      font-size: 1.6em;
+      font-weight: bold;
+      color: #ffffff;
+      background: linear-gradient(45deg, light-blue, #88d3ce);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: white;
+    }
+
+    #result p {
+      font-size: 1.2em;
+      font-weight: 600;
+      color: black;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeInDown { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+    @keyframes bounceIn { 0% { transform: scale(0.9); opacity: 0; } 60% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Water Quality Index Calculator</h1>
+    <p>Enter values for each parameter to calculate the water quality index (WQI).</p>
+    
+    <form id="wqiForm">
+      <div class="input-group">
+        <label for="pH">pH Level (0-14) :</label>
+        <input type="number" id="pH" step="0.1" min="0" max="14" required>
+      </div>
+      <div class="input-group">
+        <label for="dissolvedOxygen">Dissolved Oxygen (0-20) mg/L :</label>
+        <input type="number" id="dissolvedOxygen" step="0.1" required>
+      </div>
+      <div class="input-group">
+        <label for="turbidity">Turbidity (0-1000) NTU :</label>
+        <input type="number" id="turbidity" step="0.1" required>
+      </div>
+      <div class="input-group">
+        <label for="bod">Biological Oxygen Demand (0-500) mg/L :</label>
+        <input type="number" id="bod" step="0.1" required>
+      </div>
+      <button type="button" onclick="calculateWQI()">Calculate WQI</button>
+    </form>
+
+    <div id="result" class="result hidden">
+      <h2>Water Quality Index: <span id="wqiScore">-</span></h2>
+      <p id="wqiRating"></p>
+    </div>
+  </div>
+
+  <script>
+    function calculateWQI() {
+      const pH = parseFloat(document.getElementById("pH").value);
+      const dissolvedOxygen = parseFloat(document.getElementById("dissolvedOxygen").value);
+      const turbidity = parseFloat(document.getElementById("turbidity").value);
+      const bod = parseFloat(document.getElementById("bod").value);
+  
+      if (isNaN(pH) || isNaN(dissolvedOxygen) || isNaN(turbidity) || isNaN(bod)) {
+        alert("Please fill in all fields with valid numbers.");
+        return;
+      } else if (pH > 14 || pH < 0 || turbidity < 0 || turbidity > 1000 || dissolvedOxygen < 0 || dissolvedOxygen > 20 || bod < 0 || bod > 500) {
+        alert("Please input valid details");
+        return;
+      }
+  
+      // Simplified WQI Calculation
+      const wqi = (pH * 0.2) + (dissolvedOxygen * 0.3) + ((10 - turbidity) * 0.2) + ((10 - bod) * 0.3);
+  
+      document.getElementById("wqiScore").textContent = wqi.toFixed(1);
+      document.getElementById("result").classList.remove("hidden");
+  
+      let rating;
+      if (wqi >= 8) {
+        document.getElementById("result").style.background = "lime";
+        rating = "Excellent";
+      } else if (wqi >= 6) {
+        document.getElementById("result").style.background = "green";
+        rating = "Good";
+      } else if (wqi >= 4) {
+        document.getElementById("result").style.background = "#b5651d";
+        rating = "Fair";
+      } else {
+        document.getElementById("result").style.background = "red";
+        rating = "Poor";
+      }
+  
+      document.getElementById("wqiRating").textContent = `Quality: ${rating}`;
+    }
+  </script>
+  
+</body>
+</html>
