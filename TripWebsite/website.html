@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-image: url("images.jpeg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+        }
+        header {
+            text-align: center;
+            background-color: black;
+            color: yellow;
+            font-size: 20px;
+        }
+
+        main {
+            text-align: center;
+            font-size: 40px;
+        }
+
+        nav ul li {
+            list-style: none;
+            margin: 4px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav li {
+            display: inline-block;
+
+
+        }
+
+        nav ul li a:hover {
+            background-color: grey;
+        }
+
+        form {
+            background-color: grey;
+            margin: 80px;
+            padding: 15px;
+
+        }
+
+        .hero input,
+        .hero button {
+            padding: 20px;
+            border-radius: 5px;
+            border: none;
+            margin:10px;            
+        }
+        .hero button{
+            background-color:black;
+            color:white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Go Trip</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Tours</a></li>
+                    <li><a href="#">Package</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Find your Next tour!</h2>
+                <form>
+
+                    <input type="text" id="destination" name="destination" placeholder="Where would you like to go?">
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date">
+                    <button type="submit">Book</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
