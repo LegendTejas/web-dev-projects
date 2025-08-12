@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Registration Form</h2>
+
+<form id="jobForm">
+    <label for="last-name">Enter Name: <input id="last-name" name="last-name" type="text" required /></label><br><br>
+    <label for="email">Enter Your Email: <input id="email" name="email" type="email" required /></label><br><br>
+
+    <fieldset>
+        <legend>Gender</legend>
+        <label for="gender">
+            <input type="radio" name="gender" value="male"> Male
+        </label>
+        <label for="gender">
+            <input type="radio" name="gender" value="female"> Female
+        </label>
+        <label for="gender">
+            <input type="radio" name="gender" value="prefer-not-to-say"> Prefer Not to Say
+        </label>
+    </fieldset><br>
+
+    <label for="profile-picture">Upload a profile picture: <input id="profile-picture" type="file" name="file" /></label><br><br>
+    <label for="birthday">Date of Birth: <input type="date" id="birthday" name="birthday" /></label><br><br>
+
+    <label for="city">Select City:
+        <select id="city" name="city">
+            <option value="">Select a city</option>
+            <option value="kozhikode">Kozhikode</option>
+            <option value="agra">Agra</option>
+            <option value="milan">Milan</option>
+            <option value="newyork">New York</option>
+            <option value="manchester">Manchester</option>
+        </select>
+    </label><br><br>
+
+    <label for="bio">Provide a bio:
+        <textarea id="bio" name="bio" rows="3" cols="30" placeholder="About Yourself..."></textarea>
+    </label><br><br>
+
+    <input type="submit" value="Submit" />
+</form>
+
+<p id="demo"></p>
+
+<script>
+    document.getElementById("jobForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        // Clear previous error messages
+        const errorMessages = document.querySelectorAll(".error-message");
+        errorMessages.forEach(msg => msg.remove());
+
+        let hasError = false;
+
+        // Get all form fields
+        const nameField = document.getElementById("last-name");
+        const emailField = document.getElementById("email");
+        const bioField = document.getElementById("bio");
+        const genderFields = document.querySelectorAll('input[name="gender"]');
+        const profilePictureField = document.getElementById("profile-picture");
+        const dobField = document.getElementById("birthday");
+        const cityField = document.getElementById("city");
+
+        // Validation function to show error messages
+        function showError(field, message) {
+            const error = document.createElement("p");
+            error.className = "error-message";
+            error.textContent = message;
+            field.parentNode.insertBefore(error, field.nextSibling);
+            hasError = true;
+        }
+
+        // Validate each field
+        if (!nameField.value.trim()) {
+            showError(nameField, "Please enter your name.");
+        }
+
+        if (!emailField.value.trim()) {
+            showError(emailField, "Please enter your email.");
+        }
+
+        if (!bioField.value.trim()) {
+            showError(bioField, "Please provide a bio.");
+        }
+
+        let genderSelected = false;
+        genderFields.forEach(field => {
+            if (field.checked) {
+                genderSelected = true;
+            }
+        });
+        if (!genderSelected) {
+            showError(genderFields[0].closest('fieldset'), "Please select your gender.");
+        }
+
+        if (!profilePictureField.value.trim()) {
+            showError(profilePictureField, "Please upload a profile picture.");
+        }
+
+        if (!dobField.value.trim()) {
+            showError(dobField, "Please enter your date of birth.");
+        }
+
+        if (!cityField.value.trim()) {
+            showError(cityField, "Please select your city.");
+        }
+
+        // If there are no errors, show success message
+        if (!hasError) {
+            document.getElementById("demo").textContent = "Form submitted successfully!";
+        } else {
+            document.getElementById("demo").textContent = "Please fix the errors above.";
+        }
+    });
+</script>
+
+</body>
+</html>
